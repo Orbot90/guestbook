@@ -1,3 +1,4 @@
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import message.Message;
 
 import java.io.IOException;
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by orbot on 02.03.15.
  */
-@WebServlet(urlPatterns = "/guestbook")
+@WebServlet(urlPatterns = "/gb")
 public class MessageManager extends HttpServlet {
 
     SQLConnectivity sqlc;
@@ -36,20 +37,32 @@ public class MessageManager extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         String name = req.getParameter("username");
         String text = req.getParameter("mess");
-        Date date = new Date();
 
-        try {
-            addMessage(name, date, text);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if(!(name.equals("") || text.equals(""))) {
+            text = text.replaceAll("\r\n", "<br />");
+
+            Date date = new Date();
+
+            try {
+                addMessage(name, date, text);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
-        req.setAttribute("messages", cache.get());
+        req.getSession().setAttribute("messages", cache.get());
 
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/guestbook.jsp");
-        rd.forward(req, resp);
+        resp.sendRedirect("/guestbook/");
+
+
+//       req.setAttribute("messages", cache.get());
+
+
+//        RequestDispatcher rd = getServletContext().getRequestDispatcher("/guestbook.jsp");
+//        rd.forward(req, resp);
     }
 
     public void addMessage(String name, Date date, String message) throws SQLException {
