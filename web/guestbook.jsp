@@ -1,7 +1,6 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="message.Message" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.Enumeration" %>
 <%--
   Created by IntelliJ IDEA.
   User: orbot
