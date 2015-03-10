@@ -1,7 +1,6 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="message.Message" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.Enumeration" %>
 <%--
   Created by IntelliJ IDEA.
   User: orbot
@@ -11,49 +10,30 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
-    <title>Гостевая книга</title>
-  </head>
-  <body>
-
-
-  <h1>Гостевая книга</h1>
-  <p>Оставьте мне здесь какое-нибудь сообщение. Пару ласковых или неласковых слов =)</p>
-
-  <form action="./gb" method="post" accept-charset="UTF-8">
-
-    <label for="name-field">Ваше имя:</label> <br />
-    <input type="text" name="username" id="name-field" size="13">
-    <br />
-
-    <label for="mess-field">Ваше сообщение:</label> <br />
-    <textarea name="mess" id="mess-field" rows="10"></textarea>
-    <br />
-    <input type="submit" value="Отправить">
-
-    <br />
-    <br />
+<head>
+</head>
+<body>
 
     <%ArrayList<message.Message> messages = (ArrayList<message.Message>)request.getAttribute("messages");
 
       int pageNum = 0;
       try {
         pageNum = Integer.parseInt(request.getParameter("page")) - 1;
+        request.setAttribute("pagenum", pageNum);
+
       } catch(NumberFormatException e) {}
       %>
 
     <%if(messages != null){%>
 
       <ul>
-        <%int pages = messages.size()/5;
-         if(messages.size()%5 != 0) {
-            pages++;
-          }
+        <%int pages = (Integer)request.getAttribute("pages");
+
           for(int i = 0; i < pages; i++) {
             if((i) != pageNum) {
-              out.print("<li  style=\"display: inline\"><a href='./?page=" + (i + 1) + "'>" + (i + 1) + "</a></li> ");
+              out.println("<li  style=\"display: inline\"><a href=# onclick=\"ajax('" + (i + 1) + "'); return false\">" + (i + 1) + "</a></li> ");
             } else {
-              out.print("<li  style=\"display: inline\">" + (i + 1) + "</li> ");
+              out.println("<li  style=\"display: inline\">" + (i + 1) + "</li> ");
             }
           }
         %>
@@ -62,22 +42,36 @@
 
       <%if(messages != null) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
-        int stop = messages.size() - 1 - ((pageNum + 1) * 5);
-        for (int i = messages.size() - 1 - (pageNum * 5); (i >= 0) && (i > stop); i--) {
-          Message m = messages.get(i);
+
+        for (Message m : messages) {
           String date = sdf.format(m.getDate());
-          out.print(date + "<br />" + m.getName() + "<br />" + m.getMessage() + "<br /><br /><br />");
+          String text = m.getMessage().replaceAll("&", "&amp;")
+                  .replaceAll("\"", "&quot;")
+                  .replaceAll("<", "&lt;")
+                  .replaceAll(">", "&gt;");
+            text = text.replaceAll("\\[b\\]", "<b>").replaceAll("\\[/b\\]", "</b>")
+                    .replaceAll("\\[i\\]", "<i>").replaceAll("\\[/i\\]", "</i>")
+                    .replaceAll("\\[img\\]", "<img src='").replaceAll("\\[/img\\]", "' style='max-width: 200px; max-height: 200px;' />");
+          String name = m.getName().replaceAll("&", "&amp;")
+                  .replaceAll("\"", "&quot;")
+                  .replaceAll("<", "&lt;")
+                  .replaceAll(">", "&gt;");
+
+            out.println("<pre style='font-family: sans-serif'>");
+
+          out.println("<div class='message'>" + "<span class='date'>" + date +
+                  "</span>" + "<br />" + "<span class='name'>" + name
+                  + "</span>" + "<br />" + text + "</div>" + "<br /><br /><br />");
+
+            out.println("</pre>");
         }
       } else {
-        pageContext.forward("./gb");
+          pageContext.forward("./gb");
       }
+
     %>
+</body>
 
-
-
-  </form>
-
-
-
-  </body>
 </html>
+
+

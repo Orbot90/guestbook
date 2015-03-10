@@ -14,26 +14,27 @@ public class SQLConnectivity {
 
     public SQLConnectivity() throws ClassNotFoundException, SQLException {
         Class.forName(drvrName);
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/guestbook", "root", "");
+        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/guestbook", "root", "crossroads");
     }
 
-    public ArrayList<Message> getMessages() throws SQLException {
+    public ArrayList<Message> getMessages(int first) throws SQLException {
         ArrayList<Message> messArr = new ArrayList<Message>();
         ResultSet rs;
         Statement st = connection.createStatement();
 
 
-        rs = st.executeQuery("SELECT * FROM messages");
+        rs = st.executeQuery("SELECT * FROM messages ORDER BY id DESC LIMIT " + first + ", 5");
 
         while (rs.next()) {
             String name = rs.getString("name");
-            String message = rs.getString("message").replaceAll("\r\n", "<br />");
+            String message = rs.getString("message");
             java.util.Date date = (java.util.Date)rs.getObject("date");
 
 
             Message m = new Message(name, date, message);
             messArr.add(m);
         }
+
 
         return messArr;
     }
@@ -47,6 +48,15 @@ public class SQLConnectivity {
         String date = sdf.format(m.getDate());
 
         st.execute("INSERT INTO messages(name, date, message) VALUES('" + name + "', '" + date + "', '" + message + "')");
+    }
+
+    public int rowNum() throws SQLException {
+        Integer rows = 0;
+        Statement st = connection.createStatement();
+        ResultSet rs = st.executeQuery("SELECT COUNT(*) FROM messages");
+        while(rs.next())
+            rows = rs.getInt(1);
+        return rows;
     }
 
 

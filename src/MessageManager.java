@@ -1,4 +1,3 @@
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import message.Message;
 
 import java.io.IOException;
@@ -16,20 +15,33 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by orbot on 02.03.15.
  */
-@WebServlet(urlPatterns = "/gb")
+@WebServlet("/gb/*")
 public class MessageManager extends HttpServlet {
 
     SQLConnectivity sqlc;
-    Cache cache;
+
 
     public MessageManager() throws SQLException, ClassNotFoundException {
         sqlc = new SQLConnectivity();
-        cache = new Cache(sqlc.getMessages());
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("messages", cache.get());
+        Integer pageNum = (Integer)req.getAttribute("pagenum");
+        Integer pages = 0;
+        if(pageNum == null)
+            pageNum = 0;
+        try {
+            int rows = sqlc.rowNum();
+            pages = rows/5;
+            if(rows%5 != 0) {
+                pages++;
+            }
+            req.setAttribute("messages", sqlc.getMessages(5 * pageNum));
+            req.setAttribute("pages", pages);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/guestbook.jsp");
         rd.forward(req, resp);
@@ -40,9 +52,9 @@ public class MessageManager extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         String name = req.getParameter("username");
         String text = req.getParameter("mess");
+        Integer pages = 0;
 
         if(!(name.equals("") || text.equals(""))) {
-            text = text.replaceAll("\r\n", "<br />");
 
             Date date = new Date();
 
@@ -53,9 +65,17 @@ public class MessageManager extends HttpServlet {
             }
         }
 
-        req.getSession().setAttribute("messages", cache.get());
 
-        resp.sendRedirect("/guestbook/");
+
+        try {
+            pages = sqlc.rowNum();
+            req.getSession().setAttribute("messages", sqlc.getMessages(1));
+            req.getSession().setAttribute("pages", pages);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        resp.sendRedirect("/");
 
 
 //       req.setAttribute("messages", cache.get());
@@ -67,13 +87,11 @@ public class MessageManager extends HttpServlet {
 
     public void addMessage(String name, Date date, String message) throws SQLException {
         Message m = new Message(name, date, message);
-        cache.put(m);
+
         sqlc.addMessage(m);
     }
 
-    public ArrayList<Message> getMessages() {
-        return cache.get();
-    }
+
 
 
 }
