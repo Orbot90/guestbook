@@ -15,11 +15,17 @@
 <body>
 
     <%ArrayList<message.Message> messages = (ArrayList<message.Message>)request.getAttribute("messages");
+    boolean isNew = true;
+        if(request.getParameter("new") == null) {
+            isNew = false;
+        }
 
       int pageNum = 0;
       try {
         pageNum = Integer.parseInt(request.getParameter("page")) - 1;
-        request.setAttribute("pagenum", pageNum);
+         request.setAttribute("pagenum", pageNum);
+
+
 
       } catch(NumberFormatException e) {}
       %>
@@ -28,6 +34,7 @@
 
       <ul>
         <%int pages = (Integer)request.getAttribute("pages");
+
 
           for(int i = 0; i < pages; i++) {
             if((i) != pageNum) {
@@ -43,15 +50,19 @@
       <%if(messages != null) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
 
-        for (Message m : messages) {
+        for (int i = 0; i < messages.size(); i++) {
+        Message m = messages.get(i);
           String date = sdf.format(m.getDate());
           String text = m.getMessage().replaceAll("&", "&amp;")
                   .replaceAll("\"", "&quot;")
                   .replaceAll("<", "&lt;")
                   .replaceAll(">", "&gt;");
-            text = text.replaceAll("\\[b\\]", "<b>").replaceAll("\\[/b\\]", "</b>")
-                    .replaceAll("\\[i\\]", "<i>").replaceAll("\\[/i\\]", "</i>")
-                    .replaceAll("\\[img\\]", "<img src='").replaceAll("\\[/img\\]", "' style='max-width: 200px; max-height: 200px;' />");
+
+            text = text.replaceAll("\\[b\\]", "<b>").replaceAll("\\[/b\\]", "</b>");
+            text = text.replaceAll("\\[i\\]", "<i>").replaceAll("\\[/i\\]", "</i>");
+            text = text.replaceAll("\\[img\\]", "<img src='").replaceAll("\\[/img\\]", "' style='max-width: 200px; max-height: 200px;' />");
+
+
           String name = m.getName().replaceAll("&", "&amp;")
                   .replaceAll("\"", "&quot;")
                   .replaceAll("<", "&lt;")
@@ -59,10 +70,16 @@
 
             out.println("<pre style='font-family: sans-serif'>");
 
-          out.println("<div class='message'>" + "<span class='date'>" + date +
+            if(i == 0 && isNew) {
+                            out.println("<div class='message new'>" + "<span class='date'>" + date +
                   "</span>" + "<br />" + "<span class='name'>" + name
-                  + "</span>" + "<br />" + text + "</div>" + "<br /><br /><br />");
+                  + "</span>" + "<br />" + "<div class='text'>" + text + "</div>" + "</div>" + "<br /><br /><br />");
+            } else {
 
+                out.println("<div class='message'>" + "<span class='date'>" + date +
+                  "</span>" + "<br />" + "<span class='name'>" + name
+                  + "</span>" + "<br />" + "<div class='text'>" + text + "</div>" + "</div>" + "<br /><br /><br />");
+            }
             out.println("</pre>");
         }
       } else {

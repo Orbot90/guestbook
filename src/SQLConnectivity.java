@@ -14,7 +14,7 @@ public class SQLConnectivity {
 
     public SQLConnectivity() throws ClassNotFoundException, SQLException {
         Class.forName(drvrName);
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/guestbook", "root", "crossroads");
+        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/guestbook", "root", "");
     }
 
     public ArrayList<Message> getMessages(int first) throws SQLException {

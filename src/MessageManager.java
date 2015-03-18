@@ -54,35 +54,15 @@ public class MessageManager extends HttpServlet {
         String text = req.getParameter("mess");
         Integer pages = 0;
 
-        if(!(name.equals("") || text.equals(""))) {
 
             Date date = new Date();
 
-            try {
-                addMessage(name, date, text);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+                try {
+                    addMessage(name, date, text);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
 
-
-
-        try {
-            pages = sqlc.rowNum();
-            req.getSession().setAttribute("messages", sqlc.getMessages(1));
-            req.getSession().setAttribute("pages", pages);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        resp.sendRedirect("/");
-
-
-//       req.setAttribute("messages", cache.get());
-
-
-//        RequestDispatcher rd = getServletContext().getRequestDispatcher("/guestbook.jsp");
-//        rd.forward(req, resp);
     }
 
     public void addMessage(String name, Date date, String message) throws SQLException {
