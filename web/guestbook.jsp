@@ -60,7 +60,7 @@
 
             text = text.replaceAll("\\[b\\]", "<b>").replaceAll("\\[/b\\]", "</b>");
             text = text.replaceAll("\\[i\\]", "<i>").replaceAll("\\[/i\\]", "</i>");
-            text = text.replaceAll("\\[img\\]", "<img src='").replaceAll("\\[/img\\]", "' style='max-width: 200px; max-height: 200px;' />");
+            text = text.replaceAll("\\[img\\]", "<img class='transition' src='").replaceAll("\\[/img\\]", "' />");
 
 
           String name = m.getName().replaceAll("&", "&amp;")
