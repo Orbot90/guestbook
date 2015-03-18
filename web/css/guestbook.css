@@ -1,0 +1,236 @@
+		img {
+			max-width: 200px; 
+			max-height: 200px;
+		}
+
+		h1 {
+		 color: #B50000;
+		 font-family: 'Playfair Display', serif;
+		 text-align: center;
+		}
+
+		body {
+		 margin: 0 auto;
+		 color:white;
+		 background: url("/assets/8c6f7dc9ef31.jpg");
+		 background-position:top;
+		 background-repeat: repeat;
+		 font-family: 'Lato', sans-serif;		 
+		}
+
+		ul {
+			position: relative;
+			margin: 0 auto;
+			margin-bottom: 5px;
+			margin-left: -45px;
+		}
+
+
+		body p {		 
+		 text-align: center;
+		}
+		
+		
+		h1 {
+		 font-size: 40px;
+		}
+
+		a {
+		 color:white;
+		 text-align: left;
+ 		}
+
+
+
+ 		div.form {
+ 			margin: 0 auto;
+			text-align: center;				
+ 			font-family: monospace, Courier;
+ 		}
+
+ 		div.message {
+ 			margin: 0 auto;
+			text-align: center;				
+ 			font-family: monospace, Courier;
+ 			background-color: black;
+ 			color: white;
+ 			width: 550px; 			
+ 			border: 3px solid #212121;
+		 	border-radius: 10px;
+		 	margin-bottom: -30px;
+ 		}
+
+ 		ul {
+ 			margin: 0 auto;
+			text-align: center;				
+ 			font-family: monospace, Courier;
+ 		}
+
+ 		.date {
+ 			font-style: italic;
+ 			color: grey;
+ 		}
+
+ 		.name {
+ 			font-weight: bold;
+ 			color: green;
+ 		}
+
+ 		div.text {
+ 			margin: 0 auto;		
+ 			white-space: pre-line;			
+			
+ 		}
+
+		@keyframes appear  {
+			0% {
+				opacity: 0;
+			}
+
+			100% {
+				opacity: 1;
+			}
+		}
+
+		@-webkit-keyframes appear {
+			0% {
+				opacity: 0;
+			}
+
+			100% {
+				opacity: 1;
+			}
+		 }
+
+		@-moz-keyframes appear {
+			 0% {
+				 opacity: 0;
+			 }
+
+			 100% {
+				 opacity: 1;
+			 }
+		 }
+
+		div.new {
+			animation: appear 1s ease-out 0s 1 normal forwards;
+			-moz-animation: appear 1.5s ease-out 0s 1 normal forwards;
+			-webkit-animation: appear 1.5s ease-out 0s 1 normal forwards;
+		}
+
+ 		@media(max-width: 1000px) {
+
+ 			body {
+ 				font-size: 14px;
+ 			}
+
+
+ 			label {
+ 				font-size: 15px;
+ 			}
+
+ 			input {
+ 				font-size: 13px;
+ 			}
+
+ 			div { 				
+ 				font-size: 10px;
+ 				width: 59%;
+ 			}
+
+ 			div.message {
+ 				margin-bottom: -30px;
+ 				font-size: 13px;
+ 				max-width: 60%;
+ 			}
+
+ 			span.name {
+ 				font-size: 15px;
+ 			}
+
+ 			div.text {
+ 				font-size: 14px;
+ 			}
+
+ 			a {
+ 				font-size: 14px;
+ 			}
+
+ 			textarea {
+ 				max-width: 90%;
+ 				font-size: 13px;
+ 			}
+ 		}
+
+ 		@media(max-width: 970px) {
+ 			div {
+ 				width: 40%;
+ 			}
+
+ 			div.message {
+ 				margin-bottom: -30px;
+ 				font-size: 15px;
+ 				max-width: 70%;
+ 			}
+
+ 			div.text {
+ 				font-size: 14px;
+ 			}
+
+ 			a {
+ 				font-size: 17px;
+ 			}
+
+ 			li {
+ 				font-size: 17px;
+ 			}
+
+ 			body p {
+ 				font-size: 17px;
+ 			}
+
+ 		}
+
+ 		@media(max-width: 500px) {
+ 			a {
+ 				font-size: 15px;
+ 			}
+
+ 			li {
+ 				font-size: 15px;
+ 			}
+
+ 			body p {
+ 				font-size: 15px;
+ 			}
+
+ 			input {
+ 				font-size: 12px;
+ 			}
+
+ 			textarea {
+ 				max-width: 90%;
+ 			}
+
+ 			div.message {
+ 				max-width: 90%;
+ 				font-size: 12px; 				
+ 			}
+
+ 			div.text {
+ 				font-size: 12px;
+ 			}
+
+ 			span.name {
+ 				font-size: 15px;
+ 			}
+
+ 			img {
+ 				max-height: 150px;
+ 				max-width: 150px;
+ 			}
+
+
+
+ 		}
+
