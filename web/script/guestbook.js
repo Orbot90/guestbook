@@ -41,7 +41,7 @@
             {
                 if (xmlhttp1.readyState==4 && xmlhttp1.status==200)
                 {
-                    ajax(1);
+                    ajax('1&new');
                 }
             }
 
