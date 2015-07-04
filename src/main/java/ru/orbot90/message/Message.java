@@ -25,6 +25,9 @@ public class Message {
         this.name = name;
     }
 
+    public Message() {
+    }
+
     public String getMessage() {
         return message;
     }
@@ -43,5 +46,17 @@ public class Message {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -1,7 +1,7 @@
  function ajax(param)
         {
             var xmlhttp;
-            var link = "guestbook.jsp";
+            var link = "./gb";
             if(param != null) {
                 link += "?page=" + param;
             }
@@ -27,7 +27,7 @@
 
         function send() {
             var xmlhttp1;
-            var sendlink = "./gb/";
+            var sendlink = "./gb";
             if (window.XMLHttpRequest)
             {
                 xmlhttp1=new XMLHttpRequest();
@@ -41,7 +41,7 @@
             {
                 if (xmlhttp1.readyState==4 && xmlhttp1.status==200)
                 {
-                    ajax('1&new');
+                    ajax('0&new=1');
                 }
             }
 

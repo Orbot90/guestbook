@@ -20,25 +20,21 @@
             isNew = false;
         }
 
-      int pageNum = 0;
+      long pageNum = 0;
       try {
-        pageNum = Integer.parseInt(request.getParameter("page")) - 1;
-         request.setAttribute("pagenum", pageNum);
-
-
-
+        pageNum = Long.parseLong(request.getParameter("page"));
       } catch(NumberFormatException e) {}
       %>
 
     <%if(messages != null){%>
 
       <ul>
-        <%int pages = (Integer)request.getAttribute("pages");
+        <%long pages = (Long)request.getAttribute("pages");
 
 
           for(int i = 0; i < pages; i++) {
             if((i) != pageNum) {
-              out.println("<li  style=\"display: inline\"><a href=# onclick=\"ajax('" + (i + 1) + "'); return false\">" + (i + 1) + "</a></li> ");
+              out.println("<li  style=\"display: inline\"><a href=# onclick=\"ajax('" + (i) + "'); return false\">" + (i + 1) + "</a></li> ");
             } else {
               out.println("<li  style=\"display: inline\">" + (i + 1) + "</li> ");
             }
@@ -71,19 +67,17 @@
             out.println("<pre style='font-family: sans-serif'>");
 
             if(i == 0 && isNew) {
-                            out.println("<div class='ru.orbot90.message new'>" + "<span class='date'>" + date +
+                            out.println("<div class='message new'>" + "<span class='date'>" + date +
                   "</span>" + "<br />" + "<span class='name'>" + name
                   + "</span>" + "<br />" + "<div class='text'>" + text + "</div>" + "</div>" + "<br /><br /><br />");
             } else {
 
-                out.println("<div class='ru.orbot90.message'>" + "<span class='date'>" + date +
+                out.println("<div class='message'>" + "<span class='date'>" + date +
                   "</span>" + "<br />" + "<span class='name'>" + name
                   + "</span>" + "<br />" + "<div class='text'>" + text + "</div>" + "</div>" + "<br /><br /><br />");
             }
             out.println("</pre>");
         }
-      } else {
-          pageContext.forward("./gb");
       }
 
     %>
