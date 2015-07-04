@@ -1,5 +1,5 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="message.Message" %>
+<%@ page import="ru.orbot90.message.Message" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%--
   Created by IntelliJ IDEA.
@@ -14,7 +14,7 @@
 </head>
 <body>
 
-    <%ArrayList<message.Message> messages = (ArrayList<message.Message>)request.getAttribute("messages");
+    <%ArrayList<ru.orbot90.message.Message> messages = (ArrayList<ru.orbot90.message.Message>)request.getAttribute("messages");
     boolean isNew = true;
         if(request.getParameter("new") == null) {
             isNew = false;
@@ -71,12 +71,12 @@
             out.println("<pre style='font-family: sans-serif'>");
 
             if(i == 0 && isNew) {
-                            out.println("<div class='message new'>" + "<span class='date'>" + date +
+                            out.println("<div class='ru.orbot90.message new'>" + "<span class='date'>" + date +
                   "</span>" + "<br />" + "<span class='name'>" + name
                   + "</span>" + "<br />" + "<div class='text'>" + text + "</div>" + "</div>" + "<br /><br /><br />");
             } else {
 
-                out.println("<div class='message'>" + "<span class='date'>" + date +
+                out.println("<div class='ru.orbot90.message'>" + "<span class='date'>" + date +
                   "</span>" + "<br />" + "<span class='name'>" + name
                   + "</span>" + "<br />" + "<div class='text'>" + text + "</div>" + "</div>" + "<br /><br /><br />");
             }

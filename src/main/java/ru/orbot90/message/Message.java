@@ -1,14 +1,22 @@
-package message;
+package ru.orbot90.message;
 
-import java.text.SimpleDateFormat;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Created by orbot on 02.03.15.
+ * Created by orbot on 04.07.15.
  */
+@Entity
+@Table(name = "messages")
 public class Message {
+    @Id
+    @GeneratedValue
+    private long id;
+    @Column(name = "message_text")
     private String message;
+    @Column(name = "message_date")
     private Date date;
+    @Column(name = "message_postername")
     private String name;
 
     public Message(String name, Date date, String message) {
@@ -29,5 +37,11 @@ public class Message {
         return name;
     }
 
-   
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 }

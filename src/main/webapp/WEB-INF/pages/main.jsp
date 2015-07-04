@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html>
 <head lang="en">
     <meta charset="UTF-8">
     <title>Гостевая книга</title>
-    <link rel="stylesheet" href="css/guestbook.css">
-    <script type="text/javascript" src="script/guestbook.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/guestbook.css">
+    <script type="text/javascript" src="../../../resources/script/guestbook.js"></script>
     <a href="/">На главную</a>
 </head>
 <body>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 
 
 <h1>Гостевая книга</h1>

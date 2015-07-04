@@ -1,5 +1,6 @@
+package ru.orbot90;
 
-import message.Message;
+import ru.orbot90.message.Message;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
