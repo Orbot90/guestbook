@@ -69,7 +69,8 @@
                 document.getElementById('mess-field').value = ""
                 var params = 'username=' + encodeURIComponent(username) + '&mess=' + encodeURIComponent(text)
                 xmlhttp1.open("POST", sendlink, true)
-                xmlhttp1.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+
+                xmlhttp1.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8')
                 xmlhttp1.send(params)
             } else {
                 if (isEmpty) {
