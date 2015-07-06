@@ -14,7 +14,6 @@ import java.util.List;
 public class GuestBookDAO {
     private SessionFactory sessionFactory;
     private static GuestBookDAO instance = null;
-    private Transaction transaction;
 
     private GuestBookDAO() {
         try {
